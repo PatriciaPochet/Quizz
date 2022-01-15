@@ -1,0 +1,53 @@
+!pip install simple-colors
+!pip install emoji
+from simple_colors import *
+import emoji
+import time
+
+def quizz_intro():
+    print(magenta("Bienvenue sur mon petit quizz des capitales européennes", 'bold'))
+    print()
+    time.sleep(1)
+    print(magenta("Tu penses bien les connaître ... mais est-ce bien le cas ?"))
+    print()
+    time.sleep(1)
+    return print(magenta("Vérifions cela tout de suite !"), emoji.emojize(":winking_face:"))
+
+def quizz():
+    questions = ["Quelle est la capitale de la Hongrie ?", "Quelle est la capitale de la Finlande ?", "Quelle est la capitale de la Chypre ?"]
+    answers = ["Budapest", "Helsinki", "Nicosie"]
+    index = 0       # compteur pour définir la question à poser
+    point = 0       # compteur des points
+    counter = 3     # compteur nombre de chances
+    while point < 3 or counter > 0:
+        print(questions[index])
+        answer = input()
+        print()
+        if answer != answers[index]:
+            counter -= 1
+            if counter > 0:
+                print("Mauvaise réponse, essaie encore")
+                print("Il te reste {} essai(s)".format(counter))
+                print()
+            else:
+                print("Mauvaise réponse, Il ne te reste plus d'essai !")
+                return print("Fin de partie ! Une révision des capitales européennes s'impose !", emoji.emojize(":disappointed_face:"))
+                break
+        else:
+            counter = 3      # réinitialisation compteur des chances si bonne réponse
+            print("Bonne réponse, tu as gagné 1 point !")
+            point += 1
+            print("Tu as {} point(s)".format(point))
+            print()
+            index +=1
+            if point == 3:
+                return print("Bravo, tu as gagné la partie avec {} points ! Les capitales européennes ne semblent pas avoir de secret pour toi !".format(point) , emoji.emojize(":smiling_face_with_sunglasses:"), emoji.emojize(":partying_face:"))
+                break
+
+# functions creation above to be able to call them in another Google colab code section as below and not show the code during the game
+
+quizz_intro()
+print()
+time.sleep(1)
+quizz()
+                
